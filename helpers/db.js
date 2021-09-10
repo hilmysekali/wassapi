@@ -12,7 +12,7 @@ client.connect();
 
 const readSession = async () => {
   try {
-    const res = await client.query('SELECT * FROM wa_sessions ORDER BY created_at DESC LIMIT 1');
+    const res = await client.query('SELECT * FROM wassap_sessions ORDER BY created_at DESC LIMIT 1');
     if (res.rows.length) return res.rows[0].session;
     return '';
   } catch (err) {
@@ -21,7 +21,7 @@ const readSession = async () => {
 }
 
 const saveSession = (session) => {
-  client.query('INSERT INTO wa_sessions (session) VALUES($1)', [session], (err, results) => {
+  client.query('INSERT INTO wassap_sessions (session) VALUES($1)', [session], (err, results) => {
     if (err) {
       console.error('Failed to save session!', err);
     } else {
@@ -31,7 +31,7 @@ const saveSession = (session) => {
 }
 
 const removeSession = () => {
-  client.query('DELETE FROM wa_sessions', (err, results) => {
+  client.query('DELETE FROM wassap_sessions', (err, results) => {
     if (err) {
       console.error('Failed to remove session!', err);
     } else {
