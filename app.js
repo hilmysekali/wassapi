@@ -92,11 +92,6 @@ const db = require('./helpers/db.js');
     });
   });
 
-
-	const checkRegisteredNumber = async function(number) {
-		const isRegistered = await client.isRegisteredUser(number);
-		return isRegistered;
-	}
   const checkRegisteredNumber = async function(number) {
     const isRegistered = await client.isRegisteredUser(number);
     return isRegistered;
