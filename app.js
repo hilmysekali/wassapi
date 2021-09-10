@@ -46,6 +46,11 @@ const db = require('./helpers/db.js');
 	    if (msg.body == '!ping') {
 	        msg.reply('pong');
 	    }
+	    else if (msg.body == '/Siapa') {
+	    	msg.reply('Saya adalah bot');
+	    } else {
+	    	msg.reply('Selamat%20datang%20di%20Wassap%20BOT%20Reinvolve%20versi%20Beta%0AKetik%20%2A%2Fhelp%2A%20untuk%20bantuan.')
+	    }
 	});
 
 	client.initialize();
@@ -92,47 +97,55 @@ const db = require('./helpers/db.js');
 		const isRegistered = await client.isRegisteredUser(number);
 		return isRegistered;
 	}
-	//sendmessage
-	app.post('/send-message', [
-		body('number').notEmpty(),
-		body('message').notEmpty(),
-	], async (req,res) => {
-		const errors = validationResult(req).formatWith(({ msg })=> {
-			return msg;
-		});
+  const checkRegisteredNumber = async function(number) {
+    const isRegistered = await client.isRegisteredUser(number);
+    return isRegistered;
+  }
+  
+  // Send message
+  app.post('/send-message', [
+    body('number').notEmpty(),
+    body('message').notEmpty(),
+  ], async (req, res) => {
+    const errors = validationResult(req).formatWith(({
+      msg
+    }) => {
+      return msg;
+    });
+  
+    if (!errors.isEmpty()) {
+      return res.status(422).json({
+        status: false,
+        message: errors.mapped()
+      });
+    }
+  
+    const number = phoneNumberFormatter(req.body.number);
+    const message = req.body.message;
+  
+    const isRegisteredNumber = await checkRegisteredNumber(number);
+  
+    if (!isRegisteredNumber) {
+      return res.status(422).json({
+        status: false,
+        message: 'The number is not registered'
+      });
+    }
+  
+    client.sendMessage(number, message).then(response => {
+      res.status(200).json({
+        status: true,
+        response: response
+      });
+    }).catch(err => {
+      res.status(500).json({
+        status: false,
+        response: err
+      });
+    });
+  });
 
-		if (!errors.isEmpty()) {
-			return res.status(422).json({
-				status: false,
-				message: errors.mapped()
-			})
-		}
-		const number = phoneNumberFormatted(req.body.number);
-		const message = req.body.message;
-
-		const isRegisteredNumber = await checkRegisteredNumber(number);
-
-		if (!isRegisteredNumber) {
-			return res.status(422).json({
-				status: false,
-				message: 'Nomor tidak terdaftar di Whatsapp'
-			});
-		}
-
-		client.sendMessage(number, message).then(response => {
-			res.status(200).json({
-				status: true,
-				response: response
-			});
-		}).catch(err => {
-			res.status(500).json({
-				status: false,
-				response: err
-			});
-		});
-	});
-
-	server.listen(port, function() {
-		console.log('App running on *: ' + port);
-	});
+server.listen(port, function() {
+	console.log('App running on *: ' + port);
+});
 })();
