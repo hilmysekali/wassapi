@@ -49,7 +49,7 @@ const db = require('./helpers/db.js');
 	    else if (msg.body == '/Siapa') {
 	    	msg.reply('Saya adalah bot');
 	    } else {
-	    	msg.reply('Selamat%20datang%20di%20Wassap%20BOT%20Reinvolve%20versi%20Beta%0AKetik%20%2A%2Fhelp%2A%20untuk%20bantuan.')
+	    	msg.reply('Selamat datang di Wassap BOT Reinvolve versi Beta\nKetik !help untuk mengetahui beberapa command.');
 	    }
 	});
 
