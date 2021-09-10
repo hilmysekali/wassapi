@@ -4,7 +4,7 @@ const { body, validationResult } = require('express-validator');
 const socketIO = require('socket.io');
 const qrcode = require('qrcode');
 const http = require('http');
-const { phoneNumberFormatted } = require('./helpers/formatter');
+const { phoneNumberFormatter } = require('./helpers/formatter');
 
 const port = process.env.PORT || 8000;
 
@@ -43,13 +43,19 @@ const db = require('./helpers/db.js');
 	});
 
 	client.on('message', msg => {
-	    if (msg.body == '!ping') {
-	        msg.reply('pong');
-	    }
-	    else if (msg.body == '/Siapa') {
-	    	msg.reply('Saya adalah bot');
+	    if (msg.body == '!cek_saldo') {
+	        msg.reply('Masukkan Nomor Rekening');
+		if(msg.body == '120'){
+		 msg.reply('Nomor Rekening : *120*\n Saldo anda : *Rp.100,000*');
+		} else{
+		 msg.reply('Nomor Rekening tidak ada.\nSilahkan periksa kembali Nomor Rekening anda!');
+		}
+	    } else if (msg.body == 'reinvolve') {
+	    	msg.reply('Halo, Selamat datang!');
+	    } else if (msg.body == '!help') {
+	    	msg.reply('List perintah BOT\n1. *!cek_saldo*\n2. *hilmy*\n3. *reinvolve*');
 	    } else {
-	    	msg.reply('Selamat datang di Wassap BOT Reinvolve versi Beta\nKetik !help untuk mengetahui beberapa command.');
+	    	msg.reply('Selamat datang di Wassap BOT by Reinvolve versi Beta\nKetik *!help* untuk mengetahui beberapa perintah BOT.');
 	    }
 	});
 
