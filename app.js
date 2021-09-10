@@ -50,8 +50,10 @@ const db = require('./helpers/db.js');
 		     cek.reply('Nomor Rekening : *120*\n Saldo anda : *Rp.100,000*');
 		  } else{
 		     cek.reply('Nomor Rekening tidak ada.\nSilahkan periksa kembali Nomor Rekening anda!');
+		     return false;
 		  }
 		});
+		  return true;
 	    } else if (msg.body == 'reinvolve') {
 	    	msg.reply('Halo, Selamat datang!');
 	    } else if (msg.body == '!help') {
