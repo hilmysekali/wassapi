@@ -45,11 +45,13 @@ const db = require('./helpers/db.js');
 	client.on('message', msg => {
 	    if (msg.body == '!cek_saldo') {
 	        msg.reply('Masukkan Nomor Rekening');
-		if(msg.body == '120'){
-		 msg.reply('Nomor Rekening : *120*\n Saldo anda : *Rp.100,000*');
-		} else{
-		 msg.reply('Nomor Rekening tidak ada.\nSilahkan periksa kembali Nomor Rekening anda!');
-		}
+		client.on('message', cek => {
+		  if(cek.body == '120'){
+		     cek.reply('Nomor Rekening : *120*\n Saldo anda : *Rp.100,000*');
+		  } else{
+		     cek.reply('Nomor Rekening tidak ada.\nSilahkan periksa kembali Nomor Rekening anda!');
+		  }
+		});
 	    } else if (msg.body == 'reinvolve') {
 	    	msg.reply('Halo, Selamat datang!');
 	    } else if (msg.body == '!help') {
