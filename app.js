@@ -42,10 +42,6 @@ const db = require('./helpers/db.js');
 		session: savedSession
 	});
 
-	client.on('ready', () => {
-	    console.log('Client is ready!');
-	});
-
 	client.on('message', msg => {
 	    if (msg.body == '!ping') {
 	        msg.reply('pong');
@@ -100,7 +96,7 @@ const db = require('./helpers/db.js');
 	app.post('/send-message', [
 		body('number').notEmpty(),
 		body('message').notEmpty(),
-	], (req,res) => {
+	], async (req,res) => {
 		const errors = validationResult(req).formatWith(({ msg })=> {
 			return msg;
 		});
@@ -114,7 +110,7 @@ const db = require('./helpers/db.js');
 		const number = phoneNumberFormatted(req.body.number);
 		const message = req.body.message;
 
-		const isRegisteredNumber = checkRegisteredNumber(number);
+		const isRegisteredNumber = await checkRegisteredNumber(number);
 
 		if (!isRegisteredNumber) {
 			return res.status(422).json({
