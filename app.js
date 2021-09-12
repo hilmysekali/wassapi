@@ -7,6 +7,7 @@ const http = require('http');
 const { phoneNumberFormatter } = require('./helpers/formatter');
 
 const port = process.env.PORT || 8000;
+const tokennya = 71f7be7b8496f7ece8454b1bcdcd2162;
 
 const app = express();
 const server = http.createServer(app);
@@ -109,6 +110,7 @@ const db = require('./helpers/db.js');
   
   // Send message
   app.post('/send-message', [
+    body('token').notEmpty(),
     body('number').notEmpty(),
     body('message').notEmpty(),
   ], async (req, res) => {
@@ -117,6 +119,13 @@ const db = require('./helpers/db.js');
     }) => {
       return msg;
     });
+	  
+    if (tokennya != req.body.token) {
+    	return.res.status(422).json({
+		status: false,
+		message: 'Token Tidak Valid!'
+	});
+    }
   
     if (!errors.isEmpty()) {
       return res.status(422).json({
