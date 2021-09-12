@@ -121,7 +121,7 @@ const db = require('./helpers/db.js');
     });
 	  
     if (tokennya != req.body.token) {
-    	return.res.status(422).json({
+    	return res.status(422).json({
 		status: false,
 		message: 'Token Tidak Valid!'
 	});
