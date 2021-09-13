@@ -46,28 +46,16 @@ const db = require('./helpers/db.js');
 	
 	
 	client.on('message', async msg => {
-		const norek = msg.body.toLowerCase();
+		const norek = msg.body;
 		const replyMessage = await datb.cekSaldo(norek);
-		if (replyMessage !== false)
-		{
-		 msg.reply(replyMessage);
-		}
-	    if (msg.body == '!cek_saldo') {
-	        msg.reply('Masukkan Nomor Rekening');
-		client.on('message', cek => {
-		  if(cek.body == '120'){
-		     cek.reply('Nomor Rekening : *120*\n Saldo anda : *Rp.100,000*');
-		  } else{
-		     cek.reply('Nomor Rekening tidak ada.\nSilahkan periksa kembali Nomor Rekening anda!');
-		     return false;
-		  }
-		});
-		  return true;
-	    } else if (msg.body == 'reinvolve') {
-	    	msg.reply('Halo, Selamat datang!');
-	    } else if (msg.body == '!help') {
-	    	msg.reply('List perintah BOT\n1. *!cek_saldo*\n2. *hilmy*\n3. *reinvolve*');
- 	    } 
+	    if (msg.body == '!cek '+norek) {
+	        msg.reply('replyMessage');
+	    }
+// 	     else if (msg.body == 'reinvolve') {
+// 	    	msg.reply('Halo, Selamat datang!');
+// 	    } else if (msg.body == '!help') {
+// 	    	msg.reply('List perintah BOT\n1. *!cek_saldo*\n2. *hilmy*\n3. *reinvolve*');
+//  	    } 
 	   //else {
 // 	    	msg.reply('Selamat datang di Wassap BOT by Reinvolve versi Beta\nKetik *!help* untuk mengetahui beberapa perintah BOT.');
 // 	    }
