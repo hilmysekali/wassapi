@@ -4,37 +4,39 @@ const mysql = require('mysql2/promise');
 // create the connection to database
 const connection = async() => {
 	return await mysql.createConnection({
-	  host: '103.147.154.42',
+	  host: 'lannister.id.rapidplex.com',
+	  port: '2083',
 	  user: 'reinvol1_hilmy',
 	  password: 'ezan^hQK&C3C',
 	  database: 'reinvol1_tabungan'
 	});
 }
 
-//Pencarian
 const cekSaldo = async(norek) => {
 	const connect = await connection();
-	const [rows] = await connect.execute('SELECT * FROM kategori');
+	const [rows] = await connect.execute('SELECT * FROM tb_nasabah');
 	const cari = [norek];
 	const x = rows.length;
 	var find = 0;
 
     for (var i = 0; i < x; i++) {
-      //cari nilai yang sama
-    	// console.log(row[i].kategori_nama);
-    	if (rows[i].kategori_nama == cari) {
+    	// console.log(hasil[i].kategori_nama);
+    	if (rows[i].no_rekening == cari) {
     		find = 1;
-    		var nama_kategori = rows[i].kategori_nama;
-    		var id_kategori = rows[i].kategori_id;
-    		var keterangan_kategori = rows[i].kategori_keterangan;
+    		var no_rekening = rows[i].no_rekening;
+    		var nama_nasabah = rows[i].nama_nasabah;
+    		var alamat = rows[i].alamat;
+    		var no_hp = rows[i].no_hp;
+    		var nama_orang_tua = rows[i].nama_orang_tua;
+    		var id_kelas = rows[i].id_kelas;
     	}
     }
     if (find == '1') {
-    	const pesan = nama_kategori+' '+id_kategori+' '+keterangan_kategori;
+    	const pesan = 'CEK SALDO\nNo. Rekening : *'+no_rekening+'*\nNama Nasabah : *'+nama_nasabah+'*\nAlamat : *'+alamat+'*\nNo. HP : *'+no_hp+'*\nNama Orang Tua : *'+nama_orang_tua+'*\nKelas : *'+id_kelas+'*\nJumlah Saldo : *Rp.500,000*';
     	return pesan;
 	}
 	else {
-		const pesan = 'Data tidak ditemukan';
+		const pesan = 'Nomor Rekening tidak ditemukan';
 		return pesan;
 	}
 }
