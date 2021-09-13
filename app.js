@@ -42,8 +42,16 @@ const db = require('./helpers/db.js');
 		},
 		session: savedSession
 	});
-
-	client.on('message', msg => {
+	const datb = require('./helpers/db2.js');
+	
+	
+	client.on('message', async msg => {
+		const norek = msg.body.toLowerCase();
+		const replyMessage = await datb.cekSaldo(norek);
+		if (replyMessage !== false)
+		{
+		 msg.reply(replyMessage);
+		}
 	    if (msg.body == '!cek_saldo') {
 	        msg.reply('Masukkan Nomor Rekening');
 		client.on('message', cek => {
@@ -59,9 +67,10 @@ const db = require('./helpers/db.js');
 	    	msg.reply('Halo, Selamat datang!');
 	    } else if (msg.body == '!help') {
 	    	msg.reply('List perintah BOT\n1. *!cek_saldo*\n2. *hilmy*\n3. *reinvolve*');
-	    } else {
-	    	msg.reply('Selamat datang di Wassap BOT by Reinvolve versi Beta\nKetik *!help* untuk mengetahui beberapa perintah BOT.');
-	    }
+ 	    } 
+	   //else {
+// 	    	msg.reply('Selamat datang di Wassap BOT by Reinvolve versi Beta\nKetik *!help* untuk mengetahui beberapa perintah BOT.');
+// 	    }
 	});
 
 	client.initialize();
