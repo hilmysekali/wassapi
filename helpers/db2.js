@@ -36,8 +36,7 @@ const cekSaldo = async(norek) => {
     	return pesan;
 	}
 	else {
-		const pesan = 'Nomor Rekening tidak ditemukan';
-		return pesan;
+		return false;
 	}
 }
 module.exports = {
