@@ -48,7 +48,7 @@ const db = require('./helpers/db.js');
 	client.on('message', async msg => {
 		const norek = msg.body;
 		const replyMessage = await datb.cekSaldo(norek);
-	    if (msg.body == '!cek '+norek) {
+	    if (msg.body == norek) {
 	        msg.reply('replyMessage');
 	    }
 // 	     else if (msg.body == 'reinvolve') {
