@@ -71,7 +71,7 @@ client.on('message', async msg => {
     	case '!cek_saldo':
     		if (args.length === 1) return msg.reply('Kirim perintah *!cek_saldo [nomor_rekening]*, contoh *!cek 45683*')
     		const norek = body.slice(11)
-			request('https://reinvolve.online/api.php', function (error, response, body) {
+			request('https://reinvolve.online/api.php?token=reinvolve', function (error, response, body) {
 	  		if (!error && response.statusCode == 200) {
 		     	const rows = JSON.parse(body);
 		     	// console.log(rows[1].no_rekening);
@@ -90,12 +90,13 @@ client.on('message', async msg => {
 			    		var alamat = rows[i].alamat;
 			    		var no_hp = rows[i].no_hp;
 			    		var nama_orang_tua = rows[i].nama_orang_tua;
-			    		var id_kelas = rows[i].id_kelas;
+			    		var nama_kelas = rows[i].nama_kelas;
+					var total = rows[i].total;
 			    	}
 		    	}
 			}
 		    if (find == 1) {
-		    	const pesan = '*CEK SALDO*\nNo. Rekening : *'+no_rekening+'*\nNama Nasabah : *'+nama_nasabah+'*\nAlamat : *'+alamat+'*\nNo. HP : *'+no_hp+'*\nNama Orang Tua : *'+nama_orang_tua+'*\nKelas : *'+id_kelas+'*\nJumlah Saldo : *Rp.500,000*';
+		    	const pesan = '*CEK SALDO*\nNo. Rekening : *'+no_rekening+'*\nNama Nasabah : *'+nama_nasabah+'*\nAlamat : *'+alamat+'*\nNo. HP : *'+no_hp+'*\nNama Orang Tua : *'+nama_orang_tua+'*\nKelas : *'+id_kelas+'*\nJumlah Saldo : *Rp. '+total+'*';
 		    	msg.reply(pesan);
 			}
 			else {
@@ -106,6 +107,7 @@ client.on('message', async msg => {
     	break
 
     	case '!reinvolve':
+	case 'reinvolve':
     	case 'hilmy':
     	case 'saya':
     		client.sendMessage(from, 'Halo Selamat datang di *Reinvolve* Whatsapp BOT');
