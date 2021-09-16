@@ -18,9 +18,9 @@
     "express": "^4.17.1",
     "express-validator": "^6.12.1",
     "http": "0.0.1-security",
-    "pg": "^8.7.1",
-    "mysql2": "^2.3.0",
+    "request": "^2.88.2",
     "qrcode": "^1.4.4",
+    "pg": "^8.7.1",
     "socket.io": "2.3.0",
     "whatsapp-web.js": "^1.14.1"
   }
