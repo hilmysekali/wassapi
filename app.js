@@ -69,7 +69,7 @@ const db = require('./helpers/db.js');
       	case '!cek_saldo':
       		if (args.length === 1) return msg.reply('Kirim perintah *!cek_saldo [nomor_rekening]*, contoh *!cek 45683*')
       		const norek = body.slice(11)
-  			request('https://reinvolve.online/api.php', function (error, response, body) {
+  			request('reinvolve.online/api.php?token=indri', function (error, response, body) {
   	  		if (!error && response.statusCode == 200) {
   		     	const rows = JSON.parse(body);
   		     	// console.log(rows[1].no_rekening);
