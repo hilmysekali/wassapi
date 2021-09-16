@@ -94,7 +94,7 @@ const db = require('./helpers/db.js');
   		    	}
   			}
   		    if (find == 1) {
-  		    	const pesan = '*CEK SALDO*\nNo. Rekening : *'+no_rekening+'*\nNama Nasabah : *'+nama_nasabah+'*\nAlamat : *'+alamat+'*\nNo. HP : *'+no_hp+'*\nNama Orang Tua : *'+nama_orang_tua+'*\nKelas : *'+id_kelas+'*\nJumlah Saldo : *Rp. '+total+'*';
+  		    	const pesan = '*CEK SALDO*\nNo. Rekening : *'+no_rekening+'*\nNama Nasabah : *'+nama_nasabah+'*\nAlamat : *'+alamat+'*\nNo. HP : *'+no_hp+'*\nNama Orang Tua : *'+nama_orang_tua+'*\nKelas : *'+nama_kelas+'*\nJumlah Saldo : *Rp. '+total+'*';
   		    	msg.reply(pesan);
   			}
   			else {
